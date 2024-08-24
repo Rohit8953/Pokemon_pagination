@@ -46,7 +46,7 @@ const Cards = () => {
     }
   }, [searchvalue]);
 
-  console.log("seached pokemon is there", data, counts);
+  console.log("seached pokemon is there", data, data.length);
 
   const previouscount = () => {
     setCounts((prevcount) =>
@@ -85,17 +85,17 @@ const Cards = () => {
           />
         </div>
 
-        <span className="text-2xl font-bold tracking-tight text-gray-900 ">
+        <span className="text-2xl tracking-tight text-gray-900 ">
           No of Items {"  "}
         </span>
-        <span className="text-2xl font-bold tracking-tight text-gray-900">
-          {data.length}
+        <span className="text-2xl  tracking-tight text-gray-900">
+          { data.length===0?(<span className="text-xl">Not found</span >):data.length}
         </span>
 
         {/* Search bar ---------*/}
 
         <div className="h-full">
-          {loader ? (
+          {loader || data.length === 0 ? (
             <div className="mt-6 grid grid-cols-1 gap-x-6  gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {array.map((pokemon, index) => (
                 <div
@@ -108,9 +108,12 @@ const Cards = () => {
               ))}
             </div>
           ) : (
-            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            <div className="mt-6 grid grid-cols-1 min-h-screen gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {data.map((pokemon) => (
-                <div key={pokemon.id} className="group relative cursor-pointer ">
+                <div
+                  key={pokemon.id}
+                  className="group relative cursor-pointer "
+                >
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-t-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                     <img
                       src={
